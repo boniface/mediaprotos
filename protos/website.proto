@@ -1,0 +1,14 @@
+syntax = "proto3";
+package website;
+
+message Website {
+  string id = 1;
+  string name = 2;
+  string url = 3;
+  string country_id = 4;
+  string region_id = 5;
+  string language = 6;
+  string category = 7;
+  string logo_url = 9;
+  string description = 10;
+}

@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package website;
+
+import "feed.proto";
+import "google/protobuf/timestamp.proto";
+
+message WebsiteLink {
+  string id = 1;
+  string website_id = 2;
+  string country_id = 3;
+  string region_id = 4;
+  string url = 5;
+  string rel = 6;
+  string media_type = 7;
+  string href_lang = 8;
+  string title = 9;
+  uint64 length = 10;
+  google.protobuf.Timestamp published = 11;
+  google.protobuf.Timestamp updated = 12;
+  string content = 13;
+}
+
+message WebsiteFeed {
+  string id = 1;
+  string website_id = 2;
+  string country_id = 3;
+  string region_id = 4;
+  string url = 5;
+  string title = 6;
+  string description = 7;
+  string feed_type = 8;
+}

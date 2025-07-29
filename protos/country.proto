@@ -1,0 +1,15 @@
+syntax = "proto3";
+package location;
+
+import "geo.proto";
+
+message Country {
+  string id = 1;
+  string name = 2;
+  string iso_code = 3;
+  string region_id = 4;
+  GeoCoordinate center = 5;
+  string capital = 6;
+  string currency = 7;
+  string flag_url = 8;
+}

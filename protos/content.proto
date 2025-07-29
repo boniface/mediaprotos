@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package website;
+
+import "google/protobuf/timestamp.proto";
+import "website.proto";
+
+message Content {
+  string id = 1;
+  string website_id = 4;
+  string country_id = 7;
+  string region_id = 5;
+  string title = 2;
+  string content = 3;
+  google.protobuf.Timestamp published = 9;
+  google.protobuf.Timestamp updated = 10;
+  string link_id = 6;
+  repeated string tags = 8;
+  repeated image images = 11;
+}
+
+message image {
+  string id = 1;
+  string content_id = 2;
+  string url = 3;
+  string alt_text = 4;
+  int64 size = 5;
+  string mime_type = 6;
+  google.protobuf.Timestamp uploaded = 7;
+}

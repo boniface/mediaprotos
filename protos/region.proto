@@ -1,0 +1,11 @@
+syntax = "proto3";
+package location;
+
+import "geo.proto";
+
+message Region {
+  string id = 1;
+  string name = 2;
+  GeoCoordinate center = 3;
+  string description = 4;
+}
