@@ -12,4 +12,5 @@ message Country {
   string capital = 6;
   string currency = 7;
   string flag_url = 8;
+  string flag_emoji = 9;
 }

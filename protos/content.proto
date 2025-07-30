@@ -7,15 +7,15 @@ import "website.proto";
 
 message Content {
   string id = 1;
-  string website_id = 4;
-  string country_id = 7;
-  string region_id = 5;
-  string title = 2;
-  string content = 3;
-  google.protobuf.Timestamp published = 9;
-  google.protobuf.Timestamp updated = 10;
-  string link_id = 6;
-  repeated string tags = 8;
+  string website_id = 2;
+  string country_id = 3;
+  string region_id = 4;
+  string title = 5;
+  string content = 6;
+  google.protobuf.Timestamp published = 7;
+  google.protobuf.Timestamp updated = 8;
+  string link_id = 9;
+  repeated string tags = 10;
   repeated image images = 11;
 }
 
