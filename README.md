@@ -137,7 +137,7 @@ Compile / PB.protoSources := Seq(file("mediaprotos/protos"))
 
 ```scala
 addSbtPlugin("com.thesamet" % "sbt-protoc" % "1.0.6")
-libraryDependencies += "com.thesamet.scalapb" %% "compilerplugin" % "0.11.17"
+libraryDependencies += "com.thesamet.scalapb" %% "compilerplugin" % "0.11.19"
 ```
 
 #### Step 4: Compile and Usage
