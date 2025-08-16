@@ -1,16 +1,29 @@
 syntax = "proto3";
-package location;
+package mediaprotos.location.v1;
 
 import "geo.proto";
+import "google/protobuf/timestamp.proto";
 
 message Country {
   string id = 1;
-  string name = 2;
-  string iso_code = 3;
-  string region_id = 4;
-  GeoCoordinate center = 5;
+  string code = 2;
+  string name = 3;
+  string official_name = 4;
+  string region_id = 5;
   string capital = 6;
-  string currency = 7;
-  string flag_url = 8;
-  string flag_emoji = 9;
+  int64 population = 7;
+  double area_km2 = 8;
+  string currency_code = 9;
+  repeated string language_codes = 10;
+  string calling_code = 11;
+  string internet_tld = 12;
+  bool is_active = 13;
+  map<string, string> metadata = 14;
+  google.protobuf.Timestamp created_at = 15;
+  google.protobuf.Timestamp updated_at = 16;
+  uint64 version = 17;
+  GeoCoordinate center = 18;
+  string currency = 19;
+  string flag_url = 20;
+  string flag_emoji = 21;
 }

@@ -2,38 +2,35 @@
 
 This repository contains the Media Protobuf definitions (`.proto` files) for common domain entities. The goal is to maintain consistency and reuse across multiple services implemented in Rust, Scala, and TypeScript.
 
-## Sample Repository Structure
+**This is a public repository** - no authentication required for cloning or integration.
+
+## Initial  Repository Structure
 
 ```
 mediaprotos
 ├── protos
-│   ├── user.proto
-│   └── address.proto
+│   ├── geo.proto
+│   ├── feed.proto
+│   ├── website.proto
+│   ├── website_link.proto
+│   ├── content.proto
+│   ├── country.proto
+│   └── region.proto
 ├── README.md
 ├── LICENSE
 └── .gitignore
 ```
 
-## Access Management
+## Getting Started
 
-This repository is private. Ensure you have access via GitHub using one of the following methods:
-
-### SSH Access (Recommended)
-
-* Add your SSH public key to your GitHub account (Settings → SSH keys).
-* Clone using SSH:
+This repository is public and can be cloned directly:
 
 ```bash
-git clone git@github.com:boniface/mediaprotos.git
-```
-
-### HTTPS Access
-
-* Generate a Personal Access Token (PAT) with repository permissions in GitHub (Settings → Developer settings → Personal access tokens).
-* Clone using HTTPS:
-
-```bash
+# HTTPS (recommended)
 git clone https://github.com/boniface/mediaprotos.git
+
+# SSH (if you have SSH keys configured)
+git clone git@github.com:boniface/mediaprotos.git
 ```
 
 ---
@@ -48,7 +45,19 @@ git clone https://github.com/boniface/mediaprotos.git
 git submodule add git@github.com:boniface/mediaprotos.git
 ```
 
-#### Step 2: Automate Proto Compilation (`build.rs`)
+#### Step 2: Add dependencies to `Cargo.toml`
+
+```toml
+[dependencies]
+prost = "0.14"
+prost-types = "0.14"
+tokio = { version = "1.47", features = ["macros", "rt-multi-thread"] }
+
+[build-dependencies]
+prost-build = "0.14"
+```
+
+#### Step 3: Automate Proto Compilation (`build.rs`)
 
 ```rust
 use std::fs;
@@ -78,6 +87,27 @@ fn main() {
 }
 ```
 
+#### Step 4: Usage Example
+
+```rust
+// Generated code will be available as:
+use mediaprotos::location::v1::{Country, Region, GeoCoordinate};
+use mediaprotos::feed::v1::Feed;
+use mediaprotos::website::v1::{Website, WebsiteLink};
+use mediaprotos::content::v1::{Content, Image};
+
+fn main() {
+    let country = Country {
+        id: "zm".to_string(),
+        code: "ZM".to_string(),
+        name: "ZAMBIA".to_string(),
+        ..Default::default()
+    };
+    
+    println!("Country: {}", country.name);
+}
+```
+
 ---
 
 ### Scala Integration (using ScalaPB)
@@ -91,17 +121,47 @@ git submodule add git@github.com:boniface/mediaprotos.git
 #### Step 2: Configure `build.sbt`
 
 ```scala
-Compile / PB.protoSources := Seq(file("mediaprotos/protos"))
-
 libraryDependencies ++= Seq(
-  "com.thesamet.scalapb" %% "scalapb-runtime" % "0.11.17" % "protobuf"
+  "com.thesamet.scalapb" %% "scalapb-runtime" % "0.11.19"
 )
+
+// Configure ScalaPB
+Compile / PB.targets := Seq(
+  scalapb.gen() -> (Compile / sourceManaged).value / "scalapb"
+)
+
+Compile / PB.protoSources := Seq(file("mediaprotos/protos"))
 ```
 
-Run compilation:
+#### Step 3: Add ScalaPB plugin to `project/plugins.sbt`
+
+```scala
+addSbtPlugin("com.thesamet" % "sbt-protoc" % "1.0.6")
+libraryDependencies += "com.thesamet.scalapb" %% "compilerplugin" % "0.11.17"
+```
+
+#### Step 4: Compile and Usage
 
 ```bash
 sbt compile
+```
+
+```scala
+// Usage example
+import mediaprotos.location.v1.{Country, Region, GeoCoordinate}
+import mediaprotos.feed.v1.Feed
+import mediaprotos.website.v1.{Website, WebsiteLink}
+import mediaprotos.content.v1.{Content, Image}
+
+object Main extends App {
+  val country = Country(
+    id = "zm",
+    code = "ZM", 
+    name = "ZAMBIA"
+  )
+  
+  println(s"Country: ${country.name}")
+}
 ```
 
 ---
@@ -127,8 +187,31 @@ protoc \
   --plugin=./node_modules/.bin/protoc-gen-ts_proto \
   --ts_proto_out=./generated \
   --ts_proto_opt=esModuleInterop=true \
-  -I ./proto-central-repo/protos \
+  --ts_proto_opt=outputServices=grpc-js \
+  -I ./mediaprotos/protos \
   ./mediaprotos/protos/*.proto
+```
+
+#### Step 4: Usage Example
+
+```typescript
+// Import generated types
+import { Country, Region, GeoCoordinate } from './generated/mediaprotos/location/v1/country';
+import { Feed } from './generated/mediaprotos/feed/v1/feed';
+import { Website, WebsiteLink } from './generated/mediaprotos/website/v1/website';
+import { Content, Image } from './generated/mediaprotos/content/v1/content';
+
+// Usage
+const country: Country = {
+  id: 'zm',
+  code: 'ZM',
+  name: 'ZAMBIA',
+  officialName: 'Repblic of Zambia',
+  regionId: 'Central Africa',
+  // ... other fields
+};
+
+console.log(`Country: ${country.name}`);
 ```
 
 ---
@@ -158,7 +241,7 @@ Regenerate code following the specific language instructions provided above.
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+This project is licensed under the Apache License 2.0. See [LICENSE](LICENSE) for details.
 
 ---
 

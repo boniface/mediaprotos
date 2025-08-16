@@ -1,9 +1,0 @@
-syntax = "proto3";
-
-package entities;
-
-message Address {
-  string street = 1;
-  string city = 2;
-  string country = 3;
-}

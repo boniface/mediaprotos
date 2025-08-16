@@ -1,5 +1,5 @@
 syntax = "proto3";
-package website;
+package mediaprotos.website.v1;
 
 message Website {
   string id = 1;
@@ -9,6 +9,6 @@ message Website {
   string region_id = 5;
   string language = 6;
   string category = 7;
-  string logo_url = 9;
-  string description = 10;
+  string logo_url = 8;
+  string description = 9;
 }

@@ -1,9 +1,8 @@
 syntax = "proto3";
 
-package website;
+package mediaprotos.content.v1;
 
 import "google/protobuf/timestamp.proto";
-import "website.proto";
 
 message Content {
   string id = 1;
@@ -16,10 +15,10 @@ message Content {
   google.protobuf.Timestamp updated = 8;
   string link_id = 9;
   repeated string tags = 10;
-  repeated image images = 11;
+  repeated Image images = 11;
 }
 
-message image {
+message Image {
   string id = 1;
   string content_id = 2;
   string url = 3;

@@ -1,8 +1,7 @@
 syntax = "proto3";
 
-package website;
+package mediaprotos.website.v1;
 
-import "feed.proto";
 import "google/protobuf/timestamp.proto";
 
 message WebsiteLink {

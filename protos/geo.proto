@@ -1,5 +1,5 @@
 syntax = "proto3";
-package location;
+package mediaprotos.location.v1;
 
 message GeoCoordinate {
   double latitude = 1;
