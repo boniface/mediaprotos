@@ -2,8 +2,6 @@
 
 This repository contains the Media Protobuf definitions (`.proto` files) for common domain entities. The goal is to maintain consistency and reuse across multiple services implemented in Rust, Scala, and TypeScript.
 
-**This is a public repository** - no authentication required for cloning or integration.
-
 ## Initial  Repository Structure
 
 ```
@@ -23,7 +21,6 @@ mediaprotos
 
 ## Getting Started
 
-This repository is public and can be cloned directly:
 
 ```bash
 # HTTPS (recommended)
